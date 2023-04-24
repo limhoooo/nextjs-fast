@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/Layout'
 import utilStyles from '../styles/utils.module.css'
-// import { getSortedPostsData } from '../lib/posts'
+import { getSortedPostsData } from '../lib/posts'
 import { useEffect, useState } from 'react'
 
 /**
@@ -10,18 +10,17 @@ import { useEffect, useState } from 'react'
  * 대신 사용하려면 fetch 경로를 상대경로 말고 절대경로를 사용해야함
  * ex : fetch('https:localhost:3000/api/posts')
  */
-// export async function getStaticProps() {
-//   const allPostsData = getSortedPostsData()
-//   return {
-//     props: {
-//       allPostsData,
-//     },
-//   }
-// }
+export async function getStaticProps() {
+  const allPostsData = getSortedPostsData()
+  return {
+    props: {
+      allPostsData,
+    },
+  }
+}
 
 /**
  * SSR
- *
  */
 // export async function getServerSideProps() {
 //   const allPostsData = getSortedPostsData()
@@ -32,16 +31,16 @@ import { useEffect, useState } from 'react'
 //   }
 // }
 
-export default function Home() {
+export default function Home({ allPostsData }) {
   /**
    * CSR : page 폴더안에 api route 설정
    */
-  const [allPostsData, setAllPostsData] = useState([])
-  useEffect(() => {
-    fetch('/api/posts')
-      .then((res) => res.json())
-      .then((data) => setAllPostsData(data.allPostsData))
-  }, [])
+  // const [allPostsData, setAllPostsData] = useState([])
+  // useEffect(() => {
+  //   fetch('/api/posts')
+  //     .then((res) => res.json())
+  //     .then((data) => setAllPostsData(data.allPostsData))
+  // }, [])
 
   return (
     <Layout home>
