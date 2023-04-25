@@ -10,19 +10,7 @@ import Date from '../components/Date'
  * 대신 사용하려면 fetch 경로를 상대경로 말고 절대경로를 사용해야함
  * ex : fetch('https:localhost:3000/api/posts')
  */
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData,
-    },
-  }
-}
-
-/**
- * SSR
- */
-// export async function getServerSideProps() {
+// export async function getStaticProps() {
 //   const allPostsData = getSortedPostsData()
 //   return {
 //     props: {
@@ -30,6 +18,18 @@ export async function getStaticProps() {
 //     },
 //   }
 // }
+
+/**
+ * SSR
+ */
+export async function getServerSideProps() {
+  const allPostsData = getSortedPostsData()
+  return {
+    props: {
+      allPostsData,
+    },
+  }
+}
 
 export default function Home({ allPostsData }) {
   /**
