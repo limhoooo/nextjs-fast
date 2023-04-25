@@ -32,7 +32,6 @@ export default function write() {
           throw new Error('Fetch Error')
         })
         .then((data) => {
-          setShowLink(true)
           alert(data.msg)
           router.push('/')
         })

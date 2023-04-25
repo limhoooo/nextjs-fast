@@ -37,6 +37,7 @@ export default function Layout({ children, home }) {
               alt={name}
             />
             <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <Link href="posts/write">Write</Link>
           </>
         ) : (
           <>
@@ -59,7 +60,6 @@ export default function Layout({ children, home }) {
             </h2>
           </>
         )}
-        <Link href="posts/write">Write</Link>
       </header>
       <main>{children}</main>
       {!home && (

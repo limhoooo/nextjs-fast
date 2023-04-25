@@ -8,6 +8,7 @@ import Date from '../../components/Date'
 // 데이터의 정보들을 받아와서 미리  paths 로 그려놓음
 export async function getStaticPaths() {
   const paths = getAllPostIds()
+  console.log(paths)
   return {
     paths,
     fallback: false,
