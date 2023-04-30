@@ -3,13 +3,38 @@ import Image from 'next/image'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 const name = 'Lim Ho'
 export const siteTitle = 'TECH BLOG'
 
 export default function Layout({ children, home }) {
+  const [theme, setTheme] = useState(() => {
+    // localStorage 는 클라이언트상에서 동작하는 내장함수 이다
+    // nextjs 를 사용할땐 서버측에서 랜더링이 되기때문에 에러가난다
+    // 이런식으로 서버측에선 동작하지않고 클라이언트상에서일때 동작하게끔 처리 해줘야한다.
+    if (typeof window !== 'undefined') {
+      return window.localStorage.getItem('theme') || 'dark'
+    }
+    return 'dark'
+  })
+
+  const handleClick = () => {
+    const flag = theme === 'dark' ? 'light' : 'dark'
+    window.localStorage.setItem('theme', flag)
+    setTheme(flag)
+  }
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.querySelector('body').classList.add('dark')
+    } else {
+      document.querySelector('body').classList.remove('dark')
+    }
+  }, [theme])
   return (
-    <div className="bg-pink-50">
+    <div className="bg-pink-50 dark:bg-black text-gary-800 dark:text-gray-200 h-screen">
       <div className={styles.container}>
         <Head>
           <link rel="icon" href="/favicon.ico" />
@@ -26,6 +51,23 @@ export default function Layout({ children, home }) {
           <meta name="og:title" content={siteTitle} />
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
+        <button onClick={handleClick}>
+          {theme === 'dark' ? (
+            <Image
+              width={30}
+              height={30}
+              src="/images/light-mode.svg"
+              alt="light"
+            />
+          ) : (
+            <Image
+              width={30}
+              height={30}
+              src="/images/dark-mode.svg"
+              alt="dark"
+            />
+          )}
+        </button>
         <header className={styles.header}>
           {home ? (
             <>
@@ -38,7 +80,7 @@ export default function Layout({ children, home }) {
                 alt={name}
               />
               <h1 className={utilStyles.heading2Xl}>{name}</h1>
-              <Link href="posts/write">Write</Link>
+              <Link href="/posts/write">Write</Link>
             </>
           ) : (
             <>
