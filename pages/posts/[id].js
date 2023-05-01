@@ -1,21 +1,26 @@
-import Head from 'next/head'
-import Layout from '../../components/Layout'
-import { getAllPostIds, getPostData } from '../../lib/posts'
-import utilStyles from '../../styles/utils.module.css'
-
 import Date from '../../components/Date'
+import Layout from '../../components/Layout'
+import { getPostData } from '../../lib/posts'
+import utilStyles from '../../styles/utils.module.css'
+import { useRouter } from 'next/router'
+import { MDXRemote } from 'next-mdx-remote'
+import CodeBlock from '../../components/CodeBlock'
 
-// 데이터의 정보들을 받아와서 미리  paths 로 그려놓음
 export async function getStaticPaths() {
-  const paths = getAllPostIds()
-  console.log(paths)
+  // const paths = getAllPostIds()
+  const paths = [
+    {
+      params: {
+        id: 'ssg-ssr',
+      },
+    },
+  ]
   return {
     paths,
-    fallback: false,
+    fallback: true,
   }
 }
 
-// getStaticPaths 에서 받은 path 중 해당 [id]에 맞는 데이터를 가져옴
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id)
   return {
@@ -25,7 +30,25 @@ export async function getStaticProps({ params }) {
   }
 }
 
+const Button = ({ children }) => {
+  return (
+    <button
+      className="bg-black dark:bg-white text-lg text-teal-200 dark:text-teal-700 rounded-lg px-5"
+      onClick={() => alert(`thanks to ${children}`)}
+    >
+      {children}
+    </button>
+  )
+}
+
+const components = { Button, CodeBlock }
+
 export default function Post({ postData }) {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
   return (
     <Layout>
       <article>
@@ -33,7 +56,13 @@ export default function Post({ postData }) {
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <br />
+        {postData.contentHtml && (
+          <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        )}
+        {postData.mdxSource && (
+          <MDXRemote {...postData.mdxSource} components={components} />
+        )}
       </article>
     </Layout>
   )

@@ -34,7 +34,7 @@ export default function Layout({ children, home }) {
     }
   }, [theme])
   return (
-    <div className="bg-pink-50 dark:bg-black text-gary-800 dark:text-gray-200 h-screen">
+    <div className="bg-pink-50 dark:bg-black text-gary-800 dark:text-gray-200">
       <div className={styles.container}>
         <Head>
           <link rel="icon" href="/favicon.ico" />
@@ -53,19 +53,9 @@ export default function Layout({ children, home }) {
         </Head>
         <button onClick={handleClick}>
           {theme === 'dark' ? (
-            <Image
-              width={30}
-              height={30}
-              src="/images/light-mode.svg"
-              alt="light"
-            />
+            <Image width={30} height={30} src="/images/light-mode.svg" />
           ) : (
-            <Image
-              width={30}
-              height={30}
-              src="/images/dark-mode.svg"
-              alt="dark"
-            />
+            <Image width={30} height={30} src="/images/dark-mode.svg" />
           )}
         </button>
         <header className={styles.header}>

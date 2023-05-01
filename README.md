@@ -37,3 +37,12 @@ Images 태그 사용시 webp 확장자로 가져오고 사이즈도 img 태그�
 ### getStaticPaths fallback : 빌드시 생성되지않은 page에 대한 처리 (공부요망)
 
 ### vercel 로 배포 (write 는 안됨, github 레파지토리 md 끌어오는식으로 변경해야할듯)
+
+### tailwind 추가
+
+yarn add -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+### mdx 추가 (md 파일 코드 하이라이팅 , 코드 복사기능)
+
+yarn add next-mdx-remote react-syntax-highlighter
