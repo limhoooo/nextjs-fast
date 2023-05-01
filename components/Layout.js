@@ -5,6 +5,7 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import Utterances from './Utterances'
 
 const name = 'Lim Ho'
 export const siteTitle = 'TECH BLOG'
@@ -96,11 +97,14 @@ export default function Layout({ children, home }) {
         </header>
         <main>{children}</main>
         {!home && (
-          <div className={styles.backToHome}>
-            <Link href="/">
-              <a>← Back to home</a>
-            </Link>
-          </div>
+          <>
+            <Utterances />
+            <div className={styles.backToHome}>
+              <Link href="/">
+                <a>← Back to home</a>
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </div>

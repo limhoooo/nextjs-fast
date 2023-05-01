@@ -46,3 +46,13 @@ npx tailwindcss init -p
 ### mdx 추가 (md 파일 코드 하이라이팅 , 코드 복사기능)
 
 yarn add next-mdx-remote react-syntax-highlighter
+
+### sitemap 추가
+
+SEO 를 잘 활용하기 위한 기술
+웹 프로젝트안의 각 페이지들을 목차형식으로 만들어서
+검색엔진에 노출이 잘되게끔 도와주는 역할
+
+yarn add -D next-sitemap
+
+### utterances 추가 (github 댓글기능)
