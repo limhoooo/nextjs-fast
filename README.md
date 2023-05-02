@@ -56,3 +56,5 @@ SEO 를 잘 활용하기 위한 기술
 yarn add -D next-sitemap
 
 ### utterances 추가 (github 댓글기능)
+
+### ESLint 적용
